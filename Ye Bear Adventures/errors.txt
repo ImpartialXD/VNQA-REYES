@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/script.rpy", line 214: Line is indented, but the preceding say statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
+    jump cat_ending
+    ^
+
+Ren'Py Version: Ren'Py 8.3.6.25022803
+Tue Mar  4 01:29:47 2025
