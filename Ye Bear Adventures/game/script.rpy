@@ -3,12 +3,16 @@
 image bg room = "images/room.jpg"
 image bg mall = "images/mall.jpg"
 image bg park = "images/park.png"
-image bg school = "images/school.png"
-image bg classroom = "images/classroom.png"
+image bg school = "images/school.jpg"
+image bg schoolroom = "images/school room.jpg"
+image bg hallway = "images/schoolhallway.jpg"
+image bg rooftop = "images/school rooftop.jpg"
 image bg alley = "images/alley.jpg"
 image bg shop = im.Scale("images/shop.png", 1920, 1080)
 image bg black_bg = "images/black-background.png"
 image bg outside = im.Scale("images/outside.jpg", 1920, 1080)
+image bg park = "images/park.jpg"
+image bg icecream = "images/icecream parlour.jpg"
 # Ye bear Sprites
 image yebear idle = im.Scale("images/yebear idle.png", 700, 800)
 image yebear cute = im.Scale("images/yebear cute.png", 900, 900)
@@ -29,6 +33,7 @@ define mf = Character("Mysterious Figure", what_slow_cps=10)
 define b = Character("Ye Bear & [player_name]", what_slow_cps=30)
 define c = Character("Cat", what_slow_cps=30)
 define cn = Character("Carl The Cat", what_slow_cps=30)
+define ps = Character("[player_name]", what_slow_cps=10)
 # Function to input custom player name
 label name_input:
     $ player_name = renpy.input("What name should we call you?")
@@ -120,12 +125,12 @@ label mall_store_exit:
     scene bg black_bg with fade
     jump mall_gift_ending
 
-label mall_gift_ending:
+label mall_gift_ending: #Ending 1, Gift Ending
     "Ye Bear enjoyed the day and loved the thing/s you bought him!"
     "ENDING 1, Gift Ending"
     return
 
-label mall_ending:
+label mall_ending: #Ending 2, Mall Ending
     "After roaming around the mall, you and Ye Bear decide to grab some food and eat together."
     "With full bellies, you both head to the arcade to enjoy some games before parting ways."
     scene bg black_bg with fade
@@ -150,6 +155,7 @@ label outside:
             jump park
 
 label back_alley:
+    scene bg black_bg with fade
     "[player_name] and Ye Bear went to explore somewhere before going to the park."
     "After walking for a while, you suddenly stumbled in an eerie alley.."
     scene bg alley with fade
@@ -265,10 +271,70 @@ label back_alley:
     jump cat_ending
     
 label park:
-    "asdasdads"
+    scene bg park with fade
+    "Upon arriving, Ye Bear appreciated the surroundings around him."
+    show yebear idle at center
+    y "I forgot how much I loved parks [player_name]! "
+    hide yebear idle
+    show yebear cute at center
+    y "It brings me back to times when I was a little cub, where my parents would bring me to places like this!"
+    p "That's great to hear! I'm glad you're enjoying so far Ye Bear!"
+    hide yebear cute
+    show yebear idle at center
+    y "Oh yeah [player_name], I'm starting to get bored.."
+    y "Walking around and admiring the outside is great and all but-"
+    y "I wanna try something new!"
+    p "Sure, we could..."
+    menu:
+        "Go somewhere else":
+            p "We could try roaming around outside the park!"
+            hide yebear idle
+            show yebear cute at center
+            y "That seems fun! Lead the way good sir!"
+            jump back_alley
 
-    return
-label cat_ending:
+        "Get some Ice Cream":
+            p "Oh! I got an idea!"
+            y "What is it [player_name]?"
+            p "We could get some Ice Cream!"
+            p "You know, to refresh ourselves with some sweets!"
+            hide yebear idle
+            show yebear cute at center
+            y "That sounds like a great idea [player_name]!"
+            y "I'm also in the mood for some sweets so this will be amazing!"
+            p "Alright, lets go!" 
+            jump icecream_parlour
+
+label icecream_parlour:
+    scene bg black_bg with fade
+    "[player_name] and Ye Bear eventually found a nearby Ice Cream Parlour."
+    "Upon opening the door, you two see the aesthetic of the place."
+    scene bg icecream with fade
+    "You both appreciate how great the place looks like."
+    show yebear cute at center
+    y "Woah! This place looks sweet!"
+    y "The place smells sweet too!"
+    p "You can say that again!"
+    hide yebear cute
+    "You both decide to line up to buy some ice cream."
+    p "Hey Ye Bear, do you want anything?"
+    show yebear idle at center
+    y "A triple ice cream with vanilla, chocolate, and strawberry looks nice, why?"
+    p "Oh, It's because I'll buy you an order of ice cream!"
+    hide yebear idle
+    show yebear cute at center
+    y "Really?! Are you sure?"
+    p "Of course! You're my friend and you deserve it after all."
+    y "Thank you so much! I'll repay you someday!"
+    p "Don't mention it!"
+    scene bg black_bg with fade
+    "You finally both get the ice creams after ordering."
+    scene bg icecream with fade
+    show yebear icecream at center
+    y "Thank you so much [player_name]! I'm so grateful to have you as my friend!"
+    p "No problem dude! Anything for a good friend of mine!"
+
+label cat_ending: #Ending 3, Cat Ending
     "After that long discussion, [player_name] parted ways with Ye Bear and Carl The Cat."
     scene bg black_bg with fade
     show cat end at Position(ypos=0.750)
@@ -276,18 +342,95 @@ label cat_ending:
     "They even spend time with you to watch movies or play video games at your house!"
     "ENDING 3, Cat Ending"
     return
+
+label icecream_ending: #Ending 4, Ice Cream Ending
+    scene bg black_bg with fade
+    "After recieving the ice creams, both of you decide to leave the Ice Cream Parlour."
+    "Before parting ways, Ye Bear gave you a big hug expressing how grateful he is to have a friend like you."
+    "You smiled and you both proceeded to part ways."
+    "ENDING 4 Ice Cream Ending."
+    return
 label school:
+    scene bg black_bg with fade
+    "[player_name] and Ye Bear finally arrived at the school."
     scene bg school with fade
-    p "You arrive at school, what should we do?"
+    "Upon arriving at school, Ye Bear proceeds to ask a question.."
+    show yebear idle at center
+    y "Are you sure that going to school is a good idea?"
+    ps "..."
     menu:
-        "Go to class":
-            jump school_class
+        "Go in the school":
+            p "Yup I'm sure, Let's go in!"
+            y "Alright sir, you're the boss!"
+            jump school_hallway
         "Leave and go to the mall":
+            p "You know what, sure!"
+            p "Let's go to the mall!"
+            y "Ooh a mall!"
+            y "Haven't been to one of those in a hot minute!"
             jump mall
 
-label school_class:
-    p "You two finish the entire school day and go home tired."
-    return
 
-# The End
-return
+label school_hallway:
+    scene bg black_bg with fade
+    "You two located the door for the class, Ye Bear suddenly asks a question."
+    scene bg hallway with fade
+    show yebear idle at center
+    y "Are you sure you want to go to class? Can we go somewhere else?"
+    ps "..."
+menu:
+        "Go in class":
+            p "Yup I'm sure, let's get in class"
+            y "Alright then.."
+            jump school_class
+        "Go to the School Rooftop":
+            p "You know what, I'm also getting kinda bored.."
+            p "Let's go grab some food and settle there instead!"
+            y "Alright sir, lets go!"
+            jump school_rooftop
+
+label school_class:
+    scene bg black_bg with fade
+    "You both enter the class and settle in."
+    scene bg schoolroom with fade
+    p "Alright, lets go and listen to the lecture now!"
+    "You see Ye Bear look at you with a worried and sad look."
+    show yebear idle at left
+    y "Okay [player_name] lets go ahead and listen to the lecture!"
+    hide yebear idle
+    "You suddenly felt awful for hearing that sad tone from him."
+    stop music
+    pm "I hope Ye Bear is alright..."
+    jump school_ending
+    
+label school_rooftop:
+    scene bg black_bg with fade
+    "You both enter the rooftop and settle down with the food you two bought"
+    scene bg rooftop with fade
+    show yebear idle at center
+    y "Hey [player_name], what food you got there?"
+    p "Ah, just a simple takeout ramen."
+    y "I love ramen! What's your favorite flavor?"
+    p "Mines pretty basic though, It's just tonkotsu.."
+    y "That's not a bad thing! I love tonkotsu ramen too!"
+    hide yebear idle
+    show yebear cute at center
+    y "The richness and taste of the ramen is so fullfiling!"
+    p "That's great! At least we are in the same boat here!"
+    jump school_rooftop_ending
+
+label school_ending: #Ending 5, School Ending
+    scene bg black_bg with fade
+    "After the both of you finishes a entire school day of classes and lectures, you begin to think Ye Bear is upset at you."
+    "Ye Bear immediately greets you goodbye with a really sad tone and continues to leave the school."
+    "ENDING 5, SCHOOL ENDING"
+    return
+label school_rooftop_ending: #Ending 6, School Rooftop Ending
+    scene bg black_bg with fade
+    "You both talk about countless of topics to discuss about, letting you know about Ye Bear more."
+    "The amount of information you took from him felt relieving."
+    "Knowing you are friends with a person with an amazing background and story intrigued you."
+    "After school ends, you and Ye Bear greeted each other goodbye on a positive note."
+    "Before leaving, he told you that he is grateful to have you as a friend and he is thankful to know about you more."
+    "ENDING 6, ROOFTOP ENDING"
+    return
